@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		C217FEDB29A5420B00BB317F /* DarwinGeneratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEDA29A5420B00BB317F /* DarwinGeneratorApp.swift */; };
-		C217FEDD29A5420B00BB317F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEDC29A5420B00BB317F /* ContentView.swift */; };
+		C217FEDD29A5420B00BB317F /* PasswordGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */; };
 		C217FEDF29A5420C00BB317F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C217FEDE29A5420C00BB317F /* Assets.xcassets */; };
 		C217FEE229A5420C00BB317F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C217FEE129A5420C00BB317F /* Preview Assets.xcassets */; };
 		C217FEEC29A5420D00BB317F /* DarwinGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEEB29A5420D00BB317F /* DarwinGeneratorTests.swift */; };
 		C217FEF629A5420D00BB317F /* DarwinGeneratorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEF529A5420D00BB317F /* DarwinGeneratorUITests.swift */; };
 		C217FEF829A5420D00BB317F /* DarwinGeneratorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FEF729A5420D00BB317F /* DarwinGeneratorUITestsLaunchTests.swift */; };
+		C217FF0529A542AD00BB317F /* PasswordGeneratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */; };
+		C217FF0729A543B900BB317F /* BookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0629A543B900BB317F /* BookService.swift */; };
+		C217FF0929A546D200BB317F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0829A546D200BB317F /* NetworkError.swift */; };
+		C217FF0B29A5479300BB317F /* InformationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0A29A5479300BB317F /* InformationState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,7 @@
 /* Begin PBXFileReference section */
 		C217FED729A5420B00BB317F /* DarwinGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarwinGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C217FEDA29A5420B00BB317F /* DarwinGeneratorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarwinGeneratorApp.swift; sourceTree = "<group>"; };
-		C217FEDC29A5420B00BB317F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorView.swift; sourceTree = "<group>"; };
 		C217FEDE29A5420C00BB317F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C217FEE129A5420C00BB317F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C217FEE729A5420D00BB317F /* DarwinGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DarwinGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +48,10 @@
 		C217FEF129A5420D00BB317F /* DarwinGeneratorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DarwinGeneratorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C217FEF529A5420D00BB317F /* DarwinGeneratorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarwinGeneratorUITests.swift; sourceTree = "<group>"; };
 		C217FEF729A5420D00BB317F /* DarwinGeneratorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarwinGeneratorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorViewModel.swift; sourceTree = "<group>"; };
+		C217FF0629A543B900BB317F /* BookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookService.swift; sourceTree = "<group>"; };
+		C217FF0829A546D200BB317F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		C217FF0A29A5479300BB317F /* InformationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +103,11 @@
 			isa = PBXGroup;
 			children = (
 				C217FEDA29A5420B00BB317F /* DarwinGeneratorApp.swift */,
-				C217FEDC29A5420B00BB317F /* ContentView.swift */,
+				C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */,
+				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
+				C217FF0629A543B900BB317F /* BookService.swift */,
+				C217FF0829A546D200BB317F /* NetworkError.swift */,
+				C217FF0A29A5479300BB317F /* InformationState.swift */,
 				C217FEDE29A5420C00BB317F /* Assets.xcassets */,
 				C217FEE029A5420C00BB317F /* Preview Content */,
 			);
@@ -257,8 +269,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C217FEDD29A5420B00BB317F /* ContentView.swift in Sources */,
+				C217FF0729A543B900BB317F /* BookService.swift in Sources */,
+				C217FEDD29A5420B00BB317F /* PasswordGeneratorView.swift in Sources */,
+				C217FF0529A542AD00BB317F /* PasswordGeneratorViewModel.swift in Sources */,
 				C217FEDB29A5420B00BB317F /* DarwinGeneratorApp.swift in Sources */,
+				C217FF0B29A5479300BB317F /* InformationState.swift in Sources */,
+				C217FF0929A546D200BB317F /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,7 @@ import SwiftUI
 struct DarwinGeneratorApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PasswordGeneratorView(viewModel: PasswordGeneratorViewModel())
         }
     }
 }
