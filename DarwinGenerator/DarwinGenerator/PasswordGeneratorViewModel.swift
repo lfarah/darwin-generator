@@ -13,13 +13,15 @@ import UIKit
 class PasswordGeneratorViewModel: ObservableObject {
     @Published var state: InformationState<[PasswordCharacter]> = .loading
     @Published var selectedCharacterText: AttributedString?
-    @Published var selectedCharacter: String?
+    @Published var selectedCharacter: PasswordCharacter?
+    @Published var selectedCharacterIndex: Int?
 
     var characterCount = 5
     
     var fullText = ""
     private var cancellable: AnyCancellable?
 
+    
     init() {
         bind()
     }
@@ -59,7 +61,15 @@ class PasswordGeneratorViewModel: ObservableObject {
         }
     }
     
-    func selectedCharacter(text: PasswordCharacter) {
+    func selectedCharacter(text: PasswordCharacter, at index: Int) {
+        guard text != selectedCharacter else {
+            selectedCharacter = nil
+            selectedCharacterText = nil
+            selectedCharacterIndex = nil
+            return
+        }
+        selectedCharacterIndex = index
+        selectedCharacter = text
         let parsedText = text.sentence
         
         let attributtedStringArr = parsedText.indices.map { index in

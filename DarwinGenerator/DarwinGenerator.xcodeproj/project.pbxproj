@@ -19,6 +19,7 @@
 		C217FF0929A546D200BB317F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0829A546D200BB317F /* NetworkError.swift */; };
 		C217FF0B29A5479300BB317F /* InformationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0A29A5479300BB317F /* InformationState.swift */; };
 		C217FF0D29A596F600BB317F /* PasswordCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0C29A596F600BB317F /* PasswordCharacter.swift */; };
+		C217FF1529A6DA1500BB317F /* PasswordCharacterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		C217FF0829A546D200BB317F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		C217FF0A29A5479300BB317F /* InformationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationState.swift; sourceTree = "<group>"; };
 		C217FF0C29A596F600BB317F /* PasswordCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCharacter.swift; sourceTree = "<group>"; };
+		C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCharacterItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				C217FEDA29A5420B00BB317F /* DarwinGeneratorApp.swift */,
 				C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */,
 				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
+				C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */,
 				C217FF0629A543B900BB317F /* BookService.swift */,
 				C217FF0829A546D200BB317F /* NetworkError.swift */,
 				C217FF0A29A5479300BB317F /* InformationState.swift */,
@@ -277,6 +280,7 @@
 				C217FF0529A542AD00BB317F /* PasswordGeneratorViewModel.swift in Sources */,
 				C217FEDB29A5420B00BB317F /* DarwinGeneratorApp.swift in Sources */,
 				C217FF0B29A5479300BB317F /* InformationState.swift in Sources */,
+				C217FF1529A6DA1500BB317F /* PasswordCharacterItem.swift in Sources */,
 				C217FF0D29A596F600BB317F /* PasswordCharacter.swift in Sources */,
 				C217FF0929A546D200BB317F /* NetworkError.swift in Sources */,
 			);

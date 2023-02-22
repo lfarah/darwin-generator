@@ -22,85 +22,93 @@ struct PasswordGeneratorView: View {
             // Background
             Color(hex: 0x4D455D)
                 .ignoresSafeArea()
-            
+                        
             VStack(alignment: .center) {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
                 
-                switch viewModel.state {
-                case .loading:
-                    ProgressView()
-                case .loaded(let data):
-                    
-                    if let text = viewModel.selectedCharacterText {
-                        Text(text)
-                            .font(.subheadline)
-                            .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+                    .frame(height: 300)
+                
+                HStack {
+                    Button("Contains Numbers") {
+                        print("ContainsNumbersPressed")
+                        isNumberAllowed.toggle()
                     }
-                    
-                    HStack {
-                        ForEach(data) { text in
-                            Button(text.value) {
-                                viewModel.selectedCharacter(text: text)
-                            }
-                            .foregroundColor(Color(hex: 0xE96479))
-                            .font(.largeTitle)
-                            .fontWeight(.black)
-                            .minimumScaleFactor(0.01)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.black, lineWidth: 5)
-                            )
-                            .background(Color(hex: 0xF5E9CF))
-                            .cornerRadius(8)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .background(Color(hex: isNumberAllowed ? 0x7DB9B6 : 0xF5E9CF))
+                    .cornerRadius(8)
+                }
+                .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
+                
+                HStack {
+                    Button("Contains Symbols") {
+                        print("ContainsNumbersPressed")
+                        isSymbolAllowed.toggle()
+                    }
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .background(Color(hex: isSymbolAllowed ? 0x7DB9B6 : 0xF5E9CF))
+                    .cornerRadius(8)
+                }
+                .opacity(viewModel.selectedCharacterText == nil ? 1.1 : 0)
+            }
+            .sheet(item: $viewModel.selectedCharacterText, content: { text in
+                Text(text)
+                    .font(.title2)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .presentationDetents([.medium, .large])
+                    .padding(.horizontal)
+            })
+            .padding()
+            .task {
+                await viewModel.fetchNetwork()
+            }
+            
+            switch viewModel.state {
+            case .loading:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: 0xE96479)))
+                    .scaleEffect(3)
+            case .loaded(let data):
+                HStack {
+                    ForEach(data.indices, id: \.self) { index in
+                        let text = data[index]
+                        let isSelected = viewModel.selectedCharacterText != nil
+                        let isHidden = isSelected ? (viewModel.selectedCharacterIndex != index) : false
+                        PasswordCharacterItem(data: text,
+                                              isSelected: isSelected,
+                                              isHidden:  isHidden) {
+                            viewModel.selectedCharacter(text: text, at: index)
                         }
                     }
-                    
-                    HStack {
-                        Button("Contains Numbers") {
-                            print("ContainsNumbersPressed")
-                            isNumberAllowed.toggle()
-                        }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 60)
-                        .background(Color(hex: isNumberAllowed ? 0x7DB9B6 : 0xF5E9CF))
-                        .cornerRadius(8)
-                        
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Button("Contains Symbols") {
-                            print("ContainsNumbersPressed")
-                            isSymbolAllowed.toggle()
-                        }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 60)
-                        .background(Color(hex: isSymbolAllowed ? 0x7DB9B6 : 0xF5E9CF))
-                        .cornerRadius(8)
-                        
-                        Spacer()
-                    }
+                }
+                .offset(y: viewModel.selectedCharacterText == nil ? 0 : -100)
+                .scaleEffect(viewModel.selectedCharacterText == nil ? 1 : 1.07)
+                .animation(Animation.easeInOut(duration: 0.2), value: viewModel.selectedCharacterText)
+                
+                VStack {
+                    Spacer()
                     
                     Button("Generate") {
                         Task {
                             await viewModel.fetchNetwork()
                         }
                     }
-                    
-                case .error(let error):
-                    // TODO: Move color into another place
-                    Text(error.localizedDescription)
-                        .foregroundColor(.red)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .background(Color(hex: 0xE96479))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
                 }
-            }
-            .padding()
-            .task {
-                await viewModel.fetchNetwork()
+
+                
+            case .error(let error):
+                // TODO: Move color into another place
+                Text(error.localizedDescription)
+                    .foregroundColor(.red)
             }
         }
     }
@@ -128,5 +136,12 @@ extension Color {
             blue: Double((hex >> 00) & 0xff) / 255,
             opacity: alpha
         )
+    }
+}
+
+// TODO: Remove this
+extension AttributedString: Identifiable {
+    public var id: String {
+        return self.characters.map { String($0) }.reduce("",+)
     }
 }
