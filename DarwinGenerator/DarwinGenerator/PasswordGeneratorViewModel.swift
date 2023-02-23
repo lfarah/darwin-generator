@@ -30,38 +30,37 @@ class PasswordGeneratorViewModel: ObservableObject {
     }
     
     func bind() {
-//        $selectedCharacter
-//            .removeDuplicates()
-//            .map { character in
-//
-//            let text = "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through"
-//
-//            let myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.blue ]
-//            let myAttrString = NSAttributedString(string: text, attributes: myAttribute)
-//
-//            return text.map {
-//                let finalCharacterStr = String($0)
-//                if finalCharacterStr == character {
-//                    return (finalCharacterStr, UIColor.red)
-//                } else {
-//                    return (finalCharacterStr, UIColor.black)
-//                }
-//            }
-//        }
-////        .eraseToAnyPublisher()
-//        .assign(to: &$selectedCharacterText)
+        // As soon as a user changes one of configuration options (length, numbers, symbols), the password should generate
+        cancellable = Publishers
+            .CombineLatest3($isNumberAllowed, $isSymbolAllowed, $characterCount)
+            .removeDuplicates(by: { lhs, rhs in
+                lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2
+            })
+            .sink(receiveValue: { value in
+                print("Information changed. Generating password")
+                Task {
+                    await self.fetchNetwork()
+                }
+            })
     }
     
     func fetchNetwork() async {
         state = .loading
         let service = BookService()
-        do {
-            let data = try await service.fetchBookText()
-            let generatedPassword = generatePassword(with: data, characterCount: characterCount)
-            fullText = data
+        
+        // I would've done this in the repository + Caching layers if I had more time.
+        if !fullText.isEmpty {
+            let generatedPassword = generatePassword(with: fullText, characterCount: characterCount)
             state = .loaded(data: generatedPassword)
-        } catch let error {
-            state = .error(error: error)
+        } else {
+            do {
+                let data = try await service.fetchBookText()
+                let generatedPassword = generatePassword(with: data, characterCount: characterCount)
+                fullText = data
+                state = .loaded(data: generatedPassword)
+            } catch let error {
+                state = .error(error: error)
+            }
         }
     }
     
@@ -105,7 +104,7 @@ class PasswordGeneratorViewModel: ObservableObject {
 
         // 1. Pick 10 random sentences
         let randomSentences = data.components(separatedBy: ".")
-        let finalRandomSentences = (0...1000).compactMap { _ in
+        let finalRandomSentences = (0...200).compactMap { _ in
             randomSentences.randomElement()
         }
         

@@ -39,6 +39,8 @@ struct PasswordGeneratorView: View {
                             .foregroundColor(.white)
                         Spacer()
                     }
+                    .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
+
                     
                     Slider(value: $viewModel.characterCount, in: 2...7, step: 1) {
                         Text("Password Length")
@@ -60,9 +62,6 @@ struct PasswordGeneratorView: View {
                     .padding(.horizontal)
             })
             .padding()
-            .task {
-                await viewModel.fetchNetwork()
-            }
             
             switch viewModel.state {
             case .loading:
