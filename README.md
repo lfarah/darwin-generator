@@ -23,6 +23,7 @@ Color pallete picked from [Colorhunt](https://colorhunt.co/palette/4d455de96479f
 * Custom Swiftlint rules
 * Organize all rules for password generation in another Security Layer
 * Fix bugs and current limitations
+* Unit Tests for making sure password generation works how it's supposed to do
 
 ### Bugs and Limitations
 * There's a current limit of 7 characters because of screen width. It was a challenge to present the password in a way that it was easily tappable and the user would know about this feature. If I had more time, I'd definitely tackle this as a priority
