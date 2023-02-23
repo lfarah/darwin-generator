@@ -113,16 +113,12 @@
 			isa = PBXGroup;
 			children = (
 				C217FEDA29A5420B00BB317F /* DarwinGeneratorApp.swift */,
-				C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */,
-				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
-				C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */,
-				C217FF0629A543B900BB317F /* BookService.swift */,
-				C217FF0829A546D200BB317F /* NetworkError.swift */,
-				C217FF0A29A5479300BB317F /* InformationState.swift */,
-				C217FF0C29A596F600BB317F /* PasswordCharacter.swift */,
+				C217FF1E29A7C5B000BB317F /* Networking */,
+				C217FF1F29A7C5C600BB317F /* UI Flows */,
+				C217FF2129A7C5EE00BB317F /* DesignSystem */,
 				C217FF1629A794FB00BB317F /* String+Extensions.swift */,
-				C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */,
-				C217FF1C29A7C21900BB317F /* Color+Extensions.swift */,
+				C217FF2329A7C61900BB317F /* Model */,
+				C217FF2429A7C62F00BB317F /* Extensions */,
 				C217FEDE29A5420C00BB317F /* Assets.xcassets */,
 				C217FEE029A5420C00BB317F /* Preview Content */,
 			);
@@ -152,6 +148,58 @@
 				C217FEF729A5420D00BB317F /* DarwinGeneratorUITestsLaunchTests.swift */,
 			);
 			path = DarwinGeneratorUITests;
+			sourceTree = "<group>";
+		};
+		C217FF1E29A7C5B000BB317F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF0629A543B900BB317F /* BookService.swift */,
+				C217FF0829A546D200BB317F /* NetworkError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		C217FF1F29A7C5C600BB317F /* UI Flows */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF2029A7C5DA00BB317F /* PasswordGenerator */,
+			);
+			path = "UI Flows";
+			sourceTree = "<group>";
+		};
+		C217FF2029A7C5DA00BB317F /* PasswordGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF0C29A596F600BB317F /* PasswordCharacter.swift */,
+				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
+				C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */,
+			);
+			path = PasswordGenerator;
+			sourceTree = "<group>";
+		};
+		C217FF2129A7C5EE00BB317F /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		C217FF2329A7C61900BB317F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF0A29A5479300BB317F /* InformationState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C217FF2429A7C62F00BB317F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C217FF1C29A7C21900BB317F /* Color+Extensions.swift */,
+				C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
