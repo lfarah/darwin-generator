@@ -172,9 +172,9 @@
 		C217FF2029A7C5DA00BB317F /* PasswordGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				C217FF0C29A596F600BB317F /* PasswordCharacter.swift */,
-				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
 				C217FEDC29A5420B00BB317F /* PasswordGeneratorView.swift */,
+				C217FF0429A542AD00BB317F /* PasswordGeneratorViewModel.swift */,
+				C217FF0C29A596F600BB317F /* PasswordCharacter.swift */,
 			);
 			path = PasswordGenerator;
 			sourceTree = "<group>";

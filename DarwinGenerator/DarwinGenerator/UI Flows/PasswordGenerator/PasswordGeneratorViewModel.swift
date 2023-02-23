@@ -100,7 +100,7 @@ class PasswordGeneratorViewModel: ObservableObject {
     func generatePassword(with data: String, characterCount: Double) -> [PasswordCharacter] {
         var finalPassword: [PasswordCharacter] = []
 
-        // 1. Pick 10 random sentences
+        // 1. Pick random sentences
         let randomSentences = data.components(separatedBy: ".")
         let finalRandomSentences = (0...200).compactMap { _ in
             randomSentences.randomElement()
