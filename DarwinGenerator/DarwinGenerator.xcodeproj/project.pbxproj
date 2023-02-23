@@ -23,6 +23,7 @@
 		C217FF1729A794FB00BB317F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1629A794FB00BB317F /* String+Extensions.swift */; };
 		C217FF1B29A7C1EA00BB317F /* AttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */; };
 		C217FF1D29A7C21900BB317F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1C29A7C21900BB317F /* Color+Extensions.swift */; };
+		C217FF2729A7C77900BB317F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF2629A7C77900BB317F /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		C217FF1629A794FB00BB317F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		C217FF1C29A7C21900BB317F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		C217FF2629A7C77900BB317F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				C217FF0A29A5479300BB317F /* InformationState.swift */,
+				C217FF2629A7C77900BB317F /* Keys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				C217FED329A5420B00BB317F /* Sources */,
 				C217FED429A5420B00BB317F /* Frameworks */,
 				C217FED529A5420B00BB317F /* Resources */,
+				C217FF2529A7C67500BB317F /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -327,12 +331,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C217FF2529A7C67500BB317F /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C217FED329A5420B00BB317F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C217FF0729A543B900BB317F /* BookService.swift in Sources */,
+				C217FF2729A7C77900BB317F /* Keys.swift in Sources */,
 				C217FF1B29A7C1EA00BB317F /* AttributedString+Extensions.swift in Sources */,
 				C217FEDD29A5420B00BB317F /* PasswordGeneratorView.swift in Sources */,
 				C217FF0529A542AD00BB317F /* PasswordGeneratorViewModel.swift in Sources */,

@@ -10,6 +10,6 @@ import Foundation
 // Used for a ForEach item in SwiftUI
 extension AttributedString: Identifiable {
     public var id: String {
-        return self.characters.map { String($0) }.reduce("",+)
+        return self.characters.map { String($0) }.reduce("", +)
     }
 }

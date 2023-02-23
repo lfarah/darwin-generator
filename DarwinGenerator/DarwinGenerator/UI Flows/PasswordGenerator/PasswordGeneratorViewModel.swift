@@ -28,7 +28,6 @@ class PasswordGeneratorViewModel: ObservableObject {
     var fullText = ""
     private var infoUpdateCancellable: AnyCancellable?
 
-    
     init() {
         bind()
     }
@@ -40,7 +39,7 @@ class PasswordGeneratorViewModel: ObservableObject {
             .removeDuplicates(by: { lhs, rhs in
                 lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2
             })
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { _ in
                 Task {
                     await self.reloadData()
                 }
@@ -122,7 +121,6 @@ class PasswordGeneratorViewModel: ObservableObject {
                     return nil
                 }
 
-                
                 return (character, index, sentence)
             }
         }

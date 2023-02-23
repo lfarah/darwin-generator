@@ -25,7 +25,7 @@ struct PasswordGeneratorView: View {
                 Spacer()
                     .frame(height: 300)
                 
-                if case .loaded(_) = viewModel.state {
+                if case .loaded = viewModel.state {
                     Toggle("Contains Numbers", isOn: $viewModel.isNumberAllowed)
                         .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
                         .foregroundColor(.white)
@@ -41,7 +41,6 @@ struct PasswordGeneratorView: View {
                     }
                     .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
 
-                    
                     Slider(value: $viewModel.characterCount, in: viewModel.characterCountRange, step: 1) {
                         Text("Password Length")
                     } minimumValueLabel: {
@@ -76,7 +75,7 @@ struct PasswordGeneratorView: View {
                         let isHidden = isSelected ? (viewModel.selectedCharacterIndex != index) : false
                         PasswordCharacterItem(data: text,
                                               isSelected: isSelected,
-                                              isHidden:  isHidden) {
+                                              isHidden: isHidden) {
                             viewModel.selectedCharacter(text: text, at: index)
                         }
                     }
@@ -100,10 +99,7 @@ struct PasswordGeneratorView: View {
                     .cornerRadius(8)
                     .padding(.horizontal)
                 }
-
-                
             case .error(let error):
-                // TODO: Move color into another place
                 Text(error.localizedDescription)
                     .foregroundColor(.red)
             }

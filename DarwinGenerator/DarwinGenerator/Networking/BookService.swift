@@ -9,9 +9,7 @@ import Foundation
 
 struct BookService {
     func fetchBookText() async throws -> String {
-
-        // TODO: Move hardcoded URL to another place
-        guard let url = URL(string: "https://www.gutenberg.org/cache/epub/1228/pg1228.txt") else {
+        guard let url = URL(string: Keys.baseURL) else {
             throw NetworkError.invalidURL
         }
 
