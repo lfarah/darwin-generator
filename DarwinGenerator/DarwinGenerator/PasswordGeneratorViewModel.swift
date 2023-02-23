@@ -21,8 +21,12 @@ class PasswordGeneratorViewModel: ObservableObject {
 
     @Published var characterCount: Double = 5
     
+    let characterCountRange: ClosedRange<Double> = 2...7
+    let minimumValueText = "2"
+    let maximumValueText = "7"
+    
     var fullText = ""
-    private var cancellable: AnyCancellable?
+    private var infoUpdateCancellable: AnyCancellable?
 
     
     init() {
@@ -31,20 +35,19 @@ class PasswordGeneratorViewModel: ObservableObject {
     
     func bind() {
         // As soon as a user changes one of configuration options (length, numbers, symbols), the password should generate
-        cancellable = Publishers
+        infoUpdateCancellable = Publishers
             .CombineLatest3($isNumberAllowed, $isSymbolAllowed, $characterCount)
             .removeDuplicates(by: { lhs, rhs in
                 lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2
             })
             .sink(receiveValue: { value in
-                print("Information changed. Generating password")
                 Task {
-                    await self.fetchNetwork()
+                    await self.reloadData()
                 }
             })
     }
     
-    func fetchNetwork() async {
+    func reloadData() async {
         state = .loading
         let service = BookService()
         
@@ -64,6 +67,7 @@ class PasswordGeneratorViewModel: ObservableObject {
         }
     }
     
+    // Parsing information to show the sentence this character was picked from, having only that character in red
     func selectedCharacter(text: PasswordCharacter, at index: Int) {
         guard text != selectedCharacter else {
             selectedCharacter = nil
@@ -94,11 +98,6 @@ class PasswordGeneratorViewModel: ObservableObject {
     }
     
     /// Parses book data into password
-    /// Build a script that picks random words (or sentences) from the book, mingles them together, picks random characters and mixes that into a password.
-    ///
-    ///
-    ///
-    
     func generatePassword(with data: String, characterCount: Double) -> [PasswordCharacter] {
         var finalPassword: [PasswordCharacter] = []
 
@@ -131,6 +130,9 @@ class PasswordGeneratorViewModel: ObservableObject {
             .filter { $0.0 != " " }
             .shuffled()
         
+        // 3. Picks random characters
+        
+        // Characters in this for loop can be either letters, numbers or symbols. This way, we ensure that there's a possibility of having multiple numbers or symbols
         let parsedCharacterCount = Int(characterCount)
         for _ in 0 ..< parsedCharacterCount {
             if let randomCharacter = parsedRandomSentences.randomElement() {
@@ -139,8 +141,8 @@ class PasswordGeneratorViewModel: ObservableObject {
         }
         
         let containsNumbers = finalPassword.filter { $0.value.first?.isNumber ?? false }.count > 0
-        let containsSymbol = finalPassword.filter { $0.value.first?.containsSymbol ?? false }.count > 0
 
+        // If the password requires a number and we didn't find one, replace a current character with a random number from the book. This password will now have 1 number.
         if !containsNumbers && isNumberAllowed {
             let onlyNumbers = parsedRandomSentences.filter({ $0.0.isNumber })
             if let randomNumber = onlyNumbers.randomElement() {
@@ -148,6 +150,9 @@ class PasswordGeneratorViewModel: ObservableObject {
             }
         }
         
+        let containsSymbol = finalPassword.filter { $0.value.first?.containsSymbol ?? false }.count > 0
+        
+        // If the password requires a symbol and we didn't find one, replace a current character with a random symbol from the book. This password will now have 1 symbol.
         if !containsSymbol && isSymbolAllowed {
             let onlySymbols = parsedRandomSentences.filter({ $0.0.containsSymbol && $0.0 != "°" && $0.0 != "\r\n" })
             if let randomSymbol = onlySymbols.randomElement() {
@@ -156,8 +161,8 @@ class PasswordGeneratorViewModel: ObservableObject {
             }
         }
         
-        print("finalPassword: \(finalPassword)")
-
+        // 4. Mixes that into a password.
+        // Shuffling finalPassword again so we don't have numbers and symbols aren't usually in the last two position
         return finalPassword.shuffled()
     }
 }

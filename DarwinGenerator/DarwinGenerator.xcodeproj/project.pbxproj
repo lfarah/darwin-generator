@@ -21,6 +21,8 @@
 		C217FF0D29A596F600BB317F /* PasswordCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF0C29A596F600BB317F /* PasswordCharacter.swift */; };
 		C217FF1529A6DA1500BB317F /* PasswordCharacterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */; };
 		C217FF1729A794FB00BB317F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1629A794FB00BB317F /* String+Extensions.swift */; };
+		C217FF1B29A7C1EA00BB317F /* AttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */; };
+		C217FF1D29A7C21900BB317F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C217FF1C29A7C21900BB317F /* Color+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		C217FF0C29A596F600BB317F /* PasswordCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCharacter.swift; sourceTree = "<group>"; };
 		C217FF1429A6DA1500BB317F /* PasswordCharacterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCharacterItem.swift; sourceTree = "<group>"; };
 		C217FF1629A794FB00BB317F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		C217FF1C29A7C21900BB317F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 				C217FF0A29A5479300BB317F /* InformationState.swift */,
 				C217FF0C29A596F600BB317F /* PasswordCharacter.swift */,
 				C217FF1629A794FB00BB317F /* String+Extensions.swift */,
+				C217FF1A29A7C1EA00BB317F /* AttributedString+Extensions.swift */,
+				C217FF1C29A7C21900BB317F /* Color+Extensions.swift */,
 				C217FEDE29A5420C00BB317F /* Assets.xcassets */,
 				C217FEE029A5420C00BB317F /* Preview Content */,
 			);
@@ -279,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C217FF0729A543B900BB317F /* BookService.swift in Sources */,
+				C217FF1B29A7C1EA00BB317F /* AttributedString+Extensions.swift in Sources */,
 				C217FEDD29A5420B00BB317F /* PasswordGeneratorView.swift in Sources */,
 				C217FF0529A542AD00BB317F /* PasswordGeneratorViewModel.swift in Sources */,
 				C217FEDB29A5420B00BB317F /* DarwinGeneratorApp.swift in Sources */,
@@ -286,6 +293,7 @@
 				C217FF0B29A5479300BB317F /* InformationState.swift in Sources */,
 				C217FF1529A6DA1500BB317F /* PasswordCharacterItem.swift in Sources */,
 				C217FF0D29A596F600BB317F /* PasswordCharacter.swift in Sources */,
+				C217FF1D29A7C21900BB317F /* Color+Extensions.swift in Sources */,
 				C217FF0929A546D200BB317F /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

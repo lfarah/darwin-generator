@@ -17,7 +17,7 @@ struct PasswordGeneratorView: View {
         ZStack {
             
             // Background
-            Color(hex: 0x4D455D)
+            Color.backgroundPurple
                 .ignoresSafeArea()
                         
             VStack(alignment: .center) {
@@ -42,15 +42,15 @@ struct PasswordGeneratorView: View {
                     .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
 
                     
-                    Slider(value: $viewModel.characterCount, in: 2...7, step: 1) {
+                    Slider(value: $viewModel.characterCount, in: viewModel.characterCountRange, step: 1) {
                         Text("Password Length")
                     } minimumValueLabel: {
-                        Text("2").font(.title2)
+                        Text(viewModel.minimumValueText).font(.title2)
                     } maximumValueLabel: {
-                        Text("7").font(.title2)
+                        Text(viewModel.maximumValueText).font(.title2)
                     }
                     .foregroundColor(.white)
-                    .tint(Color(hex: 0xE96479))
+                    .tint(Color.tintRed)
                     .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
                 }
             }
@@ -66,7 +66,7 @@ struct PasswordGeneratorView: View {
             switch viewModel.state {
             case .loading:
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: 0xE96479)))
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.tintRed))
                     .scaleEffect(3)
             case .loaded(let data):
                 HStack {
@@ -90,13 +90,13 @@ struct PasswordGeneratorView: View {
                     
                     Button("Generate") {
                         Task {
-                            await viewModel.fetchNetwork()
+                            await viewModel.reloadData()
                         }
                     }
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity)
                     .frame(height: 60)
-                    .background(Color(hex: 0xE96479))
+                    .background(Color.tintRed)
                     .cornerRadius(8)
                     .padding(.horizontal)
                 }
@@ -117,28 +117,8 @@ struct PasswordGeneratorView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        // Mocked viewModel, without calling the internet for information
+        // If I had more time, I'd create a mocked service for this viewModel to use so we can have previews without calling the internet
         let viewModel = PasswordGeneratorViewModel()
         return PasswordGeneratorView(viewModel: viewModel)
-    }
-}
-
-// TODO: Remove this
-extension Color {
-    init(hex: UInt, alpha: Double = 1) {
-        self.init(
-            .sRGB,
-            red: Double((hex >> 16) & 0xff) / 255,
-            green: Double((hex >> 08) & 0xff) / 255,
-            blue: Double((hex >> 00) & 0xff) / 255,
-            opacity: alpha
-        )
-    }
-}
-
-// TODO: Remove this
-extension AttributedString: Identifiable {
-    public var id: String {
-        return self.characters.map { String($0) }.reduce("",+)
     }
 }
