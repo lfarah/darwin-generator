@@ -15,19 +15,23 @@ struct PasswordCharacterItem: View {
 
     var body: some View {
         let text = data
-        Button(text.value, action: action)
-            .foregroundColor(Color(hex: 0xE96479))
-            .font(.largeTitle)
-            .fontWeight(.black)
-            .minimumScaleFactor(0.01)
-            .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.black, lineWidth: 5)
-            )
-            .background(isSelected ? Color(hex: 0xF5E9CF) : .white)
-            .cornerRadius(8)
-            .opacity(isHidden ? 0 : 1)
+        Button(action: action, label: {
+            Text(text.value)
+                .minimumScaleFactor(0.01)
+                .lineLimit(1)
+                .layoutPriority(1)
+                .foregroundColor(Color(hex: 0xE96479))
+                .font(.largeTitle)
+                .fontWeight(.black)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(.black, lineWidth: 5)
+                )
+                .background(isSelected ? .white : Color(hex: 0xF5E9CF))
+                .cornerRadius(8)
+                .opacity(isHidden ? 0 : 1)
+        })
     }
 }
 

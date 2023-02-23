@@ -10,10 +10,7 @@ import SwiftUI
 struct PasswordGeneratorView: View {
     
     @ObservedObject var viewModel: PasswordGeneratorViewModel
-    
-    @State var isNumberAllowed = false
-    @State var isSymbolAllowed = false
-    
+        
     @State var selectedIndex: Int?
     
     var body: some View {
@@ -28,31 +25,32 @@ struct PasswordGeneratorView: View {
                 Spacer()
                     .frame(height: 300)
                 
-                HStack {
-                    Button("Contains Numbers") {
-                        print("ContainsNumbersPressed")
-                        isNumberAllowed.toggle()
+                if case .loaded(_) = viewModel.state {
+                    Toggle("Contains Numbers", isOn: $viewModel.isNumberAllowed)
+                        .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
+                        .foregroundColor(.white)
+                    
+                    Toggle("Contains Symbols", isOn: $viewModel.isSymbolAllowed)
+                        .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
+                        .foregroundColor(.white)
+                    
+                    HStack {
+                        Text("Password Length: \(Int(viewModel.characterCount))")
+                            .foregroundColor(.white)
+                        Spacer()
                     }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 60)
-                    .background(Color(hex: isNumberAllowed ? 0x7DB9B6 : 0xF5E9CF))
-                    .cornerRadius(8)
-                }
-                .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
-                
-                HStack {
-                    Button("Contains Symbols") {
-                        print("ContainsNumbersPressed")
-                        isSymbolAllowed.toggle()
+                    
+                    Slider(value: $viewModel.characterCount, in: 2...7, step: 1) {
+                        Text("Password Length")
+                    } minimumValueLabel: {
+                        Text("2").font(.title2)
+                    } maximumValueLabel: {
+                        Text("7").font(.title2)
                     }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 60)
-                    .background(Color(hex: isSymbolAllowed ? 0x7DB9B6 : 0xF5E9CF))
-                    .cornerRadius(8)
+                    .foregroundColor(.white)
+                    .tint(Color(hex: 0xE96479))
+                    .opacity(viewModel.selectedCharacterText == nil ? 1 : 0)
                 }
-                .opacity(viewModel.selectedCharacterText == nil ? 1.1 : 0)
             }
             .sheet(item: $viewModel.selectedCharacterText, content: { text in
                 Text(text)

@@ -16,7 +16,10 @@ class PasswordGeneratorViewModel: ObservableObject {
     @Published var selectedCharacter: PasswordCharacter?
     @Published var selectedCharacterIndex: Int?
 
-    var characterCount = 5
+    @Published var isNumberAllowed = false
+    @Published var isSymbolAllowed = false
+
+    @Published var characterCount: Double = 5
     
     var fullText = ""
     private var cancellable: AnyCancellable?
@@ -50,6 +53,7 @@ class PasswordGeneratorViewModel: ObservableObject {
     }
     
     func fetchNetwork() async {
+        state = .loading
         let service = BookService()
         do {
             let data = try await service.fetchBookText()
@@ -96,7 +100,7 @@ class PasswordGeneratorViewModel: ObservableObject {
     ///
     ///
     
-    func generatePassword(with data: String, characterCount: Int) -> [PasswordCharacter] {
+    func generatePassword(with data: String, characterCount: Double) -> [PasswordCharacter] {
         var finalPassword: [PasswordCharacter] = []
 
         // 1. Pick 10 random sentences
@@ -107,8 +111,20 @@ class PasswordGeneratorViewModel: ObservableObject {
         
         // 2. Mingles them together
         let parsedRandomSentences: [(Character, DefaultIndices<String>.Element, String)] = finalRandomSentences.map { sentence in
-            return sentence.indices.map { index in
+            return sentence.indices.compactMap { index in
                 let character = sentence[index]
+                
+                // If is number allowed, continue. if not, skip if contains a number
+                guard isNumberAllowed || character.isNumber == false else {
+                    return nil
+                }
+                
+                // If is symbol allowed, continue. if not, skip if contains a symbol
+                guard isSymbolAllowed || character.containsSymbol == false else {
+                    return nil
+                }
+
+                
                 return (character, index, sentence)
             }
         }
@@ -116,30 +132,25 @@ class PasswordGeneratorViewModel: ObservableObject {
             .filter { $0.0 != " " }
             .shuffled()
         
-        
-        for _ in 0...characterCount {
+        let parsedCharacterCount = Int(characterCount)
+        for _ in 0 ..< parsedCharacterCount {
             if let randomCharacter = parsedRandomSentences.randomElement() {
                 finalPassword.append(PasswordCharacter(value: String(randomCharacter.0), index: randomCharacter.1, sentence: randomCharacter.2))
             }
         }
         
         let containsNumbers = finalPassword.filter { $0.value.first?.isNumber ?? false }.count > 0
-        let containsSymbol = finalPassword.filter { character in
-            guard let value = character.value.first else {
-                return false
-            }
-            return String(value).range(of: ".*[^A-Za-z0-9].*", options: .regularExpression) != nil
-        }.count > 0
+        let containsSymbol = finalPassword.filter { $0.value.first?.containsSymbol ?? false }.count > 0
 
-        if !containsNumbers {
+        if !containsNumbers && isNumberAllowed {
             let onlyNumbers = parsedRandomSentences.filter({ $0.0.isNumber })
             if let randomNumber = onlyNumbers.randomElement() {
                 finalPassword[finalPassword.count - 2] = PasswordCharacter(value: String(randomNumber.0), index: randomNumber.1, sentence: randomNumber.2)
             }
         }
         
-        if !containsSymbol {
-            let onlySymbols = parsedRandomSentences.filter({ String($0.0).range(of: ".*[^A-Za-z0-9].*", options: .regularExpression) != nil && $0.0 != "°" && $0.0 != "\r\n" })
+        if !containsSymbol && isSymbolAllowed {
+            let onlySymbols = parsedRandomSentences.filter({ $0.0.containsSymbol && $0.0 != "°" && $0.0 != "\r\n" })
             if let randomSymbol = onlySymbols.randomElement() {
                 finalPassword[finalPassword.count - 1] = PasswordCharacter(value: String(randomSymbol.0), index: randomSymbol.1, sentence: randomSymbol.2)
 
